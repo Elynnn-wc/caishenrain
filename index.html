@@ -167,7 +167,7 @@
   <div id="caishen"></div>
   <div id="rewardPopup">
     🎉 You got SGD $20 Bonus!<br/>
-    <a href="https://explore777.netlify.app/" target="_blank">Claim Now</a>
+    <a href="https://explore777.netlify.app/" target="_blank" onclick="stopMusic()">Claim Now</a>
   </div>
   <img id="companyLogo" src="https://img.capalangresource.com/images/public/cpwl/banner/WLLB7/GENERAL/banner_20250426050341681.webp" alt="Company Logo">
   <div id="bottomBanner"></div>
@@ -185,6 +185,14 @@
         bgMusic.play().catch(() => {
           console.warn("Background music couldn't play automatically.");
         });
+      }
+    }
+
+    function stopMusic() {
+      const bgMusic = document.getElementById('bgMusic');
+      if (bgMusic) {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
       }
     }
 
