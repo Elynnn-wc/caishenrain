@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Caishen Bonus Rain</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(180deg, #b875ff 0%, #e4ccff 50%, #b875ff 100%);
+      font-family: sans-serif;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(white 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.12;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+      top: 20%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+      filter: blur(80px);
+      z-index: 0;
+    }
+
+    #caishen {
+      position: absolute;
+      top: 10%;
+      left: 0;
+      width: 120px;
+      height: 150px;
+      background: url('https://i.postimg.cc/qBDyW26y/00243643-2.png') no-repeat center center;
+      background-size: contain;
+      animation: moveLeftRight 6s ease-in-out infinite alternate;
+      z-index: 10;
+    }
+
+    @keyframes moveLeftRight {
+      from {
+        left: 0;
+      }
+      to {
+        left: calc(100% - 120px);
+      }
+    }
+
+    .red-packet {
+      position: absolute;
+      width: 50px;
+      height: 60px;
+      background: url('https://i.postimg.cc/kXdsTx0s/f-IXA1-MLNWD.png') no-repeat center center;
+      background-size: contain;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    #rewardPopup {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      display: none;
+      font-size: 1.2em;
+      z-index: 999;
+      text-align: center;
+    }
+
+    #rewardPopup a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: #6e3ad8;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    #bottomBanner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      background: url('https://img.capalangresource.com/images/public/cpwl/slideshow/WLLB7/GENERAL/slideshow_20250426022829742.gif') no-repeat center center;
+      background-size: cover;
+      z-index: 15;
+    }
+
+    #companyLogo {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 100px;
+      height: auto;
+      z-index: 20;
+    }
+  </style>
+</head>
+<body>
+  <div id="caishen"></div>
+  <div id="rewardPopup">
+    🎉 You got SGD $20 Bonus!<br/>
+    <a href="https://t.me/LiveBet777AsiaOfficial" target="_blank">Claim Now</a>
+  </div>
+  <img id="companyLogo" src="https://img.capalangresource.com/images/public/cpwl/banner/WLLB7/GENERAL/banner_20250426050341681.webp" alt="Company Logo">
+  <div id="bottomBanner"></div>
+  <script>
+    function createRedPacket() {
+      const packet = document.createElement('div');
+      packet.className = 'red-packet';
+      packet.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+      packet.style.top = '-60px';
+      document.body.appendChild(packet);
+
+      packet.onclick = () => {
+        document.getElementById('rewardPopup').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('rewardPopup').style.display = 'none';
+        }, 3000);
+        packet.remove();
+      };
+
+      let top = -60;
+      const fall = setInterval(() => {
+        top += 4;
+        packet.style.top = top + 'px';
+        if (top > window.innerHeight) {
+          clearInterval(fall);
+          packet.remove();
+        }
+      }, 20);
+    }
+
+    setInterval(createRedPacket, 300);
+  </script>
+</body>
+</html>
