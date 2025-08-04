@@ -8,7 +8,8 @@
     body {
       margin: 0;
       overflow: hidden;
-      background: linear-gradient(180deg, #b875ff 0%, #e4ccff 50%, #b875ff 100%);
+      background: url('https://img.freepik.com/free-vector/watercolor-sugar-cotton-clouds-background_79603-2380.jpg?semt=ais_hybrid&w=740') no-repeat center center fixed;
+      background-size: cover;
       font-family: sans-serif;
       position: relative;
     }
@@ -37,6 +38,42 @@
       z-index: 0;
     }
 
+    #noticeOverlay {
+      position: fixed;
+      z-index: 10000;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.88);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    #noticeBox {
+      background: #4b1c9c;
+      padding: 30px 50px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      text-align: center;
+    }
+
+    #noticeBox h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    #noticeBox button {
+      margin-top: 20px;
+      padding: 10px 24px;
+      font-size: 1.1em;
+      background: #6e3ad8;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+    }
+
     #caishen {
       position: absolute;
       top: 10%;
@@ -50,12 +87,8 @@
     }
 
     @keyframes moveLeftRight {
-      from {
-        left: 0;
-      }
-      to {
-        left: calc(100% - 120px);
-      }
+      from { left: 0; }
+      to { left: calc(100% - 120px); }
     }
 
     .red-packet {
@@ -73,12 +106,12 @@
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(20, 0, 40, 0.95);
       color: white;
-      padding: 25px 40px;
-      border-radius: 12px;
+      padding: 20px 30px;
+      border-radius: 10px;
       display: none;
-      font-size: 1.3em;
+      font-size: 1.2em;
       z-index: 999;
       text-align: center;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
@@ -116,6 +149,21 @@
   </style>
 </head>
 <body>
+  <audio id="bgMusic" src="https://github.com/Elynnn-wc/my-music/raw/refs/heads/main/M500004LgwgG2HSyhE.mp3" loop></audio>
+
+  <div id="noticeOverlay">
+    <div id="noticeBox">
+      <h2>🎁 Welcome to Caishen Bonus Rain!</h2>
+      <p>
+        Click on the red packets to claim your reward.<br/>
+        Maximum reward: <strong>SGD $20</strong><br/>
+        🎉 First-time users get <strong>SGD $10</strong> instantly!<br/>
+        👥 Invite 3 friends to get another <strong>SGD $10</strong> bonus.<br/>
+        <small>*T&C apply.</small>
+      </p>
+      <button onclick="startGame()">Start</button>
+    </div>
+  </div>
   <div id="caishen"></div>
   <div id="rewardPopup">
     🎉 You got SGD $20 Bonus!<br/>
@@ -124,7 +172,24 @@
   <img id="companyLogo" src="https://img.capalangresource.com/images/public/cpwl/banner/WLLB7/GENERAL/banner_20250426050341681.webp" alt="Company Logo">
   <div id="bottomBanner"></div>
   <script>
+    let gameStarted = false;
+
+    function startGame() {
+      document.getElementById('noticeOverlay').style.display = 'none';
+      gameStarted = true;
+      setInterval(createRedPacket, 300);
+
+      const bgMusic = document.getElementById('bgMusic');
+      if (bgMusic) {
+        bgMusic.volume = 0.5;
+        bgMusic.play().catch(() => {
+          console.warn("Background music couldn't play automatically.");
+        });
+      }
+    }
+
     function createRedPacket() {
+      if (!gameStarted) return;
       const packet = document.createElement('div');
       packet.className = 'red-packet';
       packet.style.left = Math.random() * (window.innerWidth - 50) + 'px';
@@ -149,8 +214,6 @@
         }
       }, 20);
     }
-
-    setInterval(createRedPacket, 300);
   </script>
 </body>
 </html>
