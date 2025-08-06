@@ -13,7 +13,6 @@
       font-family: sans-serif;
       position: relative;
     }
-
     body::before {
       content: "";
       position: fixed;
@@ -24,7 +23,6 @@
       z-index: 0;
       pointer-events: none;
     }
-
     body::after {
       content: "";
       position: absolute;
@@ -37,7 +35,6 @@
       filter: blur(80px);
       z-index: 0;
     }
-
     #noticeOverlay {
       position: fixed;
       z-index: 10000;
@@ -50,7 +47,6 @@
       font-family: sans-serif;
       flex-direction: column;
     }
-
     #noticeBox {
       background: #4b1c9c;
       padding: 30px 50px;
@@ -58,12 +54,10 @@
       box-shadow: 0 0 20px rgba(255,255,255,0.2);
       text-align: center;
     }
-
     #noticeBox h2 {
       margin-top: 0;
       margin-bottom: 12px;
     }
-
     #noticeBox button {
       margin-top: 20px;
       padding: 10px 24px;
@@ -74,7 +68,6 @@
       color: white;
       cursor: pointer;
     }
-
     #adminResetBtn {
       display: none;
       position: absolute;
@@ -89,7 +82,6 @@
       cursor: pointer;
       z-index: 10001;
     }
-
     #caishen {
       position: absolute;
       top: 10%;
@@ -101,12 +93,10 @@
       animation: moveLeftRight 6s ease-in-out infinite alternate;
       z-index: 10;
     }
-
     @keyframes moveLeftRight {
       from { left: 0; }
       to { left: calc(100% - 120px); }
     }
-
     .red-packet {
       position: absolute;
       width: 80px;
@@ -116,7 +106,6 @@
       cursor: pointer;
       z-index: 5;
     }
-
     #rewardPopup {
       position: fixed;
       top: 50%;
@@ -132,7 +121,6 @@
       text-align: center;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
     }
-
     #rewardPopup a {
       display: inline-block;
       margin-top: 12px;
@@ -142,7 +130,6 @@
       text-decoration: none;
       border-radius: 6px;
     }
-
     #rewardPopup .close-btn {
       position: absolute;
       top: 8px;
@@ -152,7 +139,6 @@
       cursor: pointer;
       font-weight: bold;
     }
-
     #bottomBanner {
       position: fixed;
       bottom: 0;
@@ -163,7 +149,6 @@
       background-size: cover;
       z-index: 15;
     }
-
     #companyLogo {
       position: fixed;
       top: 50%;
@@ -208,22 +193,18 @@
   </div>
 
   <img id="companyLogo" src="https://img.capalangresource.com/images/public/cpwl/banner/WLLB7/GENERAL/banner_20250426050341681.webp" alt="Company Logo">
-
   <div id="bottomBanner"></div>
 
   <script>
     let gameStarted = false;
-
     function startGame() {
       if (localStorage.getItem("hasClaimedReward")) {
         alert("You have already claimed your reward.");
         return;
       }
-
       document.getElementById('noticeOverlay').style.display = 'none';
       gameStarted = true;
       setInterval(createRedPacket, 300);
-
       const bgMusic = document.getElementById('bgMusic');
       if (bgMusic) {
         bgMusic.volume = 0.5;
@@ -232,7 +213,6 @@
         });
       }
     }
-
     function stopMusic() {
       const bgMusic = document.getElementById('bgMusic');
       if (bgMusic) {
@@ -240,28 +220,23 @@
         bgMusic.currentTime = 0;
       }
     }
-
     function createRedPacket() {
       if (!gameStarted) return;
-
       const packet = document.createElement('div');
       packet.className = 'red-packet';
       packet.style.left = Math.random() * (window.innerWidth - 50) + 'px';
       packet.style.top = '-60px';
       document.body.appendChild(packet);
-
       packet.onclick = () => {
         if (localStorage.getItem("hasClaimedReward")) {
           alert("Reward already claimed.");
           packet.remove();
           return;
         }
-
         document.getElementById('rewardPopup').style.display = 'block';
         localStorage.setItem("hasClaimedReward", "1");
         packet.remove();
       };
-
       let top = -60;
       const fall = setInterval(() => {
         top += 4;
@@ -272,18 +247,15 @@
         }
       }, 20);
     }
-
     function closeReward() {
       document.getElementById('rewardPopup').style.display = 'none';
     }
-
     document.addEventListener('keydown', function (e) {
       if (e.shiftKey && e.key === 'R') {
         const btn = document.getElementById("adminResetBtn");
         if (btn) btn.style.display = 'block';
       }
     });
-
     document.getElementById("adminResetBtn").addEventListener("click", () => {
       localStorage.removeItem("hasClaimedReward");
       alert("User reward status has been reset.");
