@@ -8,7 +8,8 @@
     body {
       margin: 0;
       overflow: hidden;
-      background: url('https://img.freepik.com/free-vector/watercolor-sugar-cotton-clouds-background_79603-2380.jpg?semt=ais_hybrid&w=740') no-repeat center center fixed;
+      background: url('https://img.freepik.com/free-vector/watercolor-sugar-cotton-clouds-background_79603-2380.jpg?semt=ais_hybrid&w=740') no-repeat center center;
+      background-attachment: scroll; /* 修复 iOS 问题 */
       background-size: cover;
       font-family: sans-serif;
       position: relative;
@@ -92,6 +93,8 @@
       background-size: contain;
       animation: moveLeftRight 6s ease-in-out infinite alternate;
       z-index: 10;
+      will-change: transform;
+      transform: translateZ(0); /* 修复 Android 闪烁 */
     }
     @keyframes moveLeftRight {
       from { left: 0; }
@@ -105,6 +108,8 @@
       background-size: contain;
       cursor: pointer;
       z-index: 5;
+      will-change: transform;
+      transform: translateZ(0); /* 修复 Android 闪烁 */
     }
     #rewardPopup {
       position: fixed;
@@ -168,7 +173,7 @@
 
   <div id="noticeOverlay">
     <div id="noticeBox">
-      <h2>🎁 Welcome to Caishen Bonus Rain!</h2>
+      <h2>🏱 Welcome to Caishen Bonus Rain!</h2>
       <p>
         Click on the red packets to claim your reward.<br/>
         Maximum reward: <strong>SGD $20</strong><br/>
