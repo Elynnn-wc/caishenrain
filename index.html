@@ -12,7 +12,8 @@
       background-attachment: scroll; /* 修复 iOS 问题 */
       background-size: cover;
       font-family: sans-serif;
-      position: relative;
+      height: 100vh;
+      width: 100vw;
     }
     body::before {
       content: "";
@@ -162,7 +163,7 @@
       max-width: 100vw;
       max-height: 100vh;
       opacity: 0.85;
-      filter: blur(0px);
+      filter: blur(0.5px);
       pointer-events: none;
       z-index: 1;
     }
