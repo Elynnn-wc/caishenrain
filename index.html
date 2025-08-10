@@ -203,6 +203,7 @@
 
   <script>
     let gameStarted = false;
+    let packetInterval;
     function startGame() {
       if (localStorage.getItem("hasClaimedReward")) {
         alert("You have already claimed your reward.");
@@ -210,7 +211,7 @@
       }
       document.getElementById('noticeOverlay').style.display = 'none';
       gameStarted = true;
-      setInterval(createRedPacket, 300);
+      packetInterval = setInterval(createRedPacket, 300);
       const bgMusic = document.getElementById('bgMusic');
       if (bgMusic) {
         bgMusic.volume = 0.5;
@@ -241,6 +242,9 @@
         }
         document.getElementById('rewardPopup').style.display = 'block';
         localStorage.setItem("hasClaimedReward", "1");
+        gameStarted = false;
+        if (packetInterval) clearInterval(packetInterval);
+        document.querySelectorAll('.red-packet').forEach(el => el.remove());
         packet.remove();
       };
       let top = -60;
